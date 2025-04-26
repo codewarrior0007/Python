@@ -1,1 +1,7 @@
 # Python
+This is a Python Repo to learn new tips and tricks of the Python world.  
+
+1. **Operating System**: Lubuntu 24.04.01 - Lubuntu is a lightweight Linux distribution based on Ubuntu that uses the LXQt desktop environment in place of GNOME. (https://lubuntu.me/)
+2. **Language:** Python 3.12.3 (https://www.python.org/downloads/)
+3. **Coding in:** Python IDLE & MS Visual Studio Code (https://code.visualstudio.com/) 
+4. **Snap store:** to safely install Linux apps on OS.   (https://snapcraft.io/store)
