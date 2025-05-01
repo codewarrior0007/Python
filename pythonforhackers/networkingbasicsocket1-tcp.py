@@ -31,7 +31,7 @@
  target_port = 80
 
 # # Use a context manager to ensure proper cleanup of the socket
-# try:
+ try:
      with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
          client.settimeout(5)  # Set a timeout for connection attempts
 
