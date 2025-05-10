@@ -1,0 +1,54 @@
+# Created 05/09/2025
+# Author: https://github.com/codewarrior0007
+# Script Name: linuxosnetworkcapture.py
+# Script Version: 1.0
+# Scripting Language: Python 3.10
+# Library used: subprocess, json, os, time
+# Inputs : configuration file (e.g., config.json)
+# Output: Response from the server in bytes and decoded string
+# # Scripting Tool: Visual Studio Code
+# Purpose: This script uses above mentioned libraries to collect Linux System snapshot _
+# for later analysis.  
+# Disclaimer: This script was written for demonstation purposes only. Any miss use of this _
+# script is not the responsibility of the author.  
+
+import subprocess
+import json
+import os
+import time
+
+# Load configuration from JSON
+config_file = "<location of the project>/config.json"
+
+if not os.path.exists(config_file):
+    print(f"Configuration file {config_file} not found!")
+    exit(1)
+
+with open(config_file, "r") as file:
+    config = json.load(file)
+
+#
+base_path = config["base_path"]
+output_log_file = os.path.join(base_path, config["output_log_file"])
+network_capture_file1 = os.path.join(base_path, config["network_capture_file1"])
+network_capture_file2 = os.path.join(base_path, config["network_capture_file2"])
+
+# Ensure base path exists
+os.makedirs(base_path, exist_ok=True)
+
+# Function to execute system commands and log output
+def capture_command_output(command, filename):
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, shell=True)
+        with open(filename, "a") as file:
+            file.write(f"\n### {command} ###\n")
+            file.write(result.stdout + "\n")
+    except Exception as e:
+        print(f"Error running {command}: {e}")
+
+# Capture user activity
+capture_command_output("who", output_log_file)
+capture_command_output("whoami", output_log_file)
+capture_command_output("pwd", output_log_file)
+
+print(f"Evidence collected! Check {output_log_file} for details.")
