@@ -1,8 +1,8 @@
-# Created 05/09/2025
+# Created 05/10/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: linuxosnetworkcapture.py
 # Script Version: 1.0
-# Scripting Language: Python 3.10
+# Scripting Language: Python 3.12
 # Library used: subprocess, json, os, time
 # Inputs : configuration file (e.g., config.json)
 # Output: Response from the server in bytes and decoded string
@@ -27,7 +27,7 @@ if not os.path.exists(config_file):
 with open(config_file, "r") as file:
     config = json.load(file)
 
-#
+# Configurations for various files
 base_path = config["base_path"]
 output_log_file = os.path.join(base_path, config["output_log_file"])
 network_capture_file1 = os.path.join(base_path, config["network_capture_file1"])
@@ -50,5 +50,9 @@ def capture_command_output(command, filename):
 capture_command_output("who", output_log_file)
 capture_command_output("whoami", output_log_file)
 capture_command_output("pwd", output_log_file)
+
+# Capture Linux Kernel version
+capture_command_output("uname -a", output_log_file)
+capture_command_output("cat /proc/version", output_log_file)
 
 print(f"Evidence collected! Check {output_log_file} for details.")
