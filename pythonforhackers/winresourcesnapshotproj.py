@@ -1,9 +1,8 @@
-
-# Created 05/09/2025
+# Created 05/10/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
-# Scripting Language: Python 3.10
+# Scripting Language: Python 3.12
 # Library used: psutil, socket, getpass, datetime
 # Scripting Tool: Visual Studio Code
 # Purpose: This script uses above mentioned libraries to collect Windows System snapshot _
@@ -25,11 +24,19 @@ def get_user_info():
      }
     return user_info
 
+# # Function to capture memory usage
+def get_memory_snapshot():
+    memory = psutil.virtual_memory()
+    swap = psutil.swap_memory()
+    return {"virtual_memory": memory._asdict(), "swap_memory": swap._asdict()}
+
+
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
      forensic_data = {
         "user_info": get_user_info(),
-         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "memory_snapshot": get_memory_snapshot(),
+        "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
      return forensic_data
