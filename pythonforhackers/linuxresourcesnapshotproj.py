@@ -1,4 +1,4 @@
-# Created 05/10/2025
+# Created 05/11/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: linuxosnetworkcapture.py
 # Script Version: 1.0
@@ -54,5 +54,8 @@ capture_command_output("pwd", output_log_file)
 # Capture Linux Kernel version
 capture_command_output("uname -a", output_log_file)
 capture_command_output("cat /proc/version", output_log_file)
+
+# Capture file integrity check (e.g., system binaries)
+capture_command_output("sha256sum /bin/bash /bin/ls /bin/ps", output_log_file)
 
 print(f"Evidence collected! Check {output_log_file} for details.")
