@@ -1,6 +1,6 @@
 # Created 05/11/2025
 # Author: https://github.com/codewarrior0007
-# Script Name: linuxosnetworkcapture.py
+# Script Name: linuxresourcesnapshotproj.py
 # Script Version: 1.0
 # Scripting Language: Python 3.12
 # Library used: subprocess, json, os, time
@@ -9,7 +9,7 @@
 # # Scripting Tool: Visual Studio Code
 # Purpose: This script uses above mentioned libraries to collect Linux System snapshot _
 # for later analysis.  
-# Disclaimer: This script was written for demonstation purposes only. Any miss use of this _
+# Disclaimer: This script was written for demonstation purposes only. Any misuse of this _
 # script is not the responsibility of the author.  
 
 import subprocess
