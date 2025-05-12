@@ -1,4 +1,4 @@
-# Created 05/11/2025
+# Created 05/12/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: linuxresourcesnapshotproj.py
 # Script Version: 1.0
@@ -57,5 +57,16 @@ capture_command_output("cat /proc/version", output_log_file)
 
 # Capture file integrity check (e.g., system binaries)
 capture_command_output("sha256sum /bin/bash /bin/ls /bin/ps", output_log_file)
+
+# Capture networking details
+capture_command_output("netstat -tulnp", output_log_file)
+capture_command_output("ss -tulnp", output_log_file)
+capture_command_output("ip addr show", output_log_file)
+capture_command_output("ip link show", output_log_file)
+capture_command_output("ip neigh show", output_log_file)
+capture_command_output("iptables -L", output_log_file)
+capture_command_output("ip tunnel show", output_log_file)
+capture_command_output("cat /etc/hosts", output_log_file)
+capture_command_output("ifconfig", output_log_file)
 
 print(f"Evidence collected! Check {output_log_file} for details.")
