@@ -1,4 +1,4 @@
-# Created 05/11/2025
+# Created 05/12/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -37,12 +37,21 @@ def get_process_snapshot():
         processes.append(proc.info)
     return processes
 
+# # Function to capture network details
+def get_network_snapshot():
+    net_info = {
+        "interfaces": psutil.net_if_addrs(),
+        "connections": psutil.net_connections(kind='inet')
+    }
+    return net_info
+
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
      forensic_data = {
         "user_info": get_user_info(),
         "memory_snapshot": get_memory_snapshot(),
         "process_snapshot": get_process_snapshot(), 
+        "network_snapshot": get_network_snapshot(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
