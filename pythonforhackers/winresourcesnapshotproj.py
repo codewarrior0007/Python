@@ -1,4 +1,4 @@
-# Created 05/12/2025
+# Created 05/13/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -13,6 +13,7 @@
 import psutil 
 import socket
 import getpass 
+import pySMART
 from datetime import datetime
 
 # # Function to capture user account details
@@ -45,13 +46,26 @@ def get_network_snapshot():
     }
     return net_info
 
+# # Function to capture hard drive SMART data
+def get_disk_snapshot():
+    drives = {}
+    for disk in psutil.disk_partitions():
+        drive_name = disk.device
+        try:
+            smart = pySMART.Device(drive_name)
+            drives[drive_name] = smart.attributes
+        except:
+            drives[drive_name] = "SMART data unavailable"
+    return drives
+
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
      forensic_data = {
         "user_info": get_user_info(),
         "memory_snapshot": get_memory_snapshot(),
         "process_snapshot": get_process_snapshot(), 
-        "network_snapshot": get_network_snapshot(),         
+        "network_snapshot": get_network_snapshot(),    
+        "disk_snapshot": get_disk_snapshot(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
