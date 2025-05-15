@@ -1,4 +1,4 @@
-# Created 05/13/2025
+# Created 05/14/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -57,6 +57,23 @@ def get_disk_snapshot():
         except:
             drives[drive_name] = "SMART data unavailable"
     return drives
+# # Function to capture disk partitions
+def get_partition_snapshot():
+    partitions = psutil.disk_partitions()
+    # usage = {p.device: psutil.disk_usage(p.mountpoint)._asdict() for p in partitions}
+    # return {"partitions": partitions, "usage": usage}
+    usage = {}
+    for p in partitions:
+           try:
+            # Attempt to get disk usage; if the device is not ready, it will raise an exception
+                usage[p.device] = psutil.disk_usage(p.mountpoint)._asdict()
+           except PermissionError:
+                print(f"Skipping {p.device}: Permission denied")
+           except FileNotFoundError:
+                print(f"Skipping {p.device}: Mount point not found")
+           except OSError as e:
+                print(f"Skipping {p.device}: {e}")
+    return {"partitions": partitions, "usage": usage}
 
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
@@ -65,7 +82,8 @@ def collect_forensic_snapshot():
         "memory_snapshot": get_memory_snapshot(),
         "process_snapshot": get_process_snapshot(), 
         "network_snapshot": get_network_snapshot(),    
-        "disk_snapshot": get_disk_snapshot(),         
+        "disk_snapshot": get_disk_snapshot(), 
+        "partition_snapshot": get_partition_snapshot(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
