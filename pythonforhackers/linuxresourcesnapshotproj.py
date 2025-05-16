@@ -1,4 +1,4 @@
-# Created 05/13/2025
+# Created 05/15/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: linuxresourcesnapshotproj.py
 # Script Version: 1.0
@@ -71,5 +71,9 @@ capture_command_output("ifconfig", output_log_file)
 
 # Capture active connections
 capture_command_output("lsof -i -P -n", output_log_file)
+
+# Capture partition tables
+capture_command_output("lsblk", output_log_file)
+capture_command_output("df -h", output_log_file)
 
 print(f"Evidence collected! Check {output_log_file} for details.")
