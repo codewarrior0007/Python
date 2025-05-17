@@ -1,4 +1,4 @@
-# Created 05/14/2025
+# Created 05/16/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -57,6 +57,7 @@ def get_disk_snapshot():
         except:
             drives[drive_name] = "SMART data unavailable"
     return drives
+    
 # # Function to capture disk partitions
 def get_partition_snapshot():
     partitions = psutil.disk_partitions()
@@ -74,7 +75,18 @@ def get_partition_snapshot():
            except OSError as e:
                 print(f"Skipping {p.device}: {e}")
     return {"partitions": partitions, "usage": usage}
-
+    
+# # Function to capture network packets (optional)
+def capture_network_packets():
+    packets = []
+    try:
+        cap = pyshark.LiveCapture(interface="Wi-Fi")
+        cap.sniff(timeout=5)  # Capture for 5 seconds
+        for packet in cap.sniff_continuously(packet_count=10):
+            packets.append(str(packet))
+    except Exception as e:
+        return {"error": str(e)}
+    return packets
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
      forensic_data = {
@@ -83,7 +95,8 @@ def collect_forensic_snapshot():
         "process_snapshot": get_process_snapshot(), 
         "network_snapshot": get_network_snapshot(),    
         "disk_snapshot": get_disk_snapshot(), 
-        "partition_snapshot": get_partition_snapshot(),         
+        "partition_snapshot": get_partition_snapshot(),  
+        "network_packets": capture_network_packets(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
