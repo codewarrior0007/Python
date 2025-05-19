@@ -1,4 +1,4 @@
-# Created 05/16/2025
+# Created 05/18/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -14,6 +14,11 @@ import psutil
 import socket
 import getpass 
 import pySMART
+import scapy.all as scapy
+import pyshark
+import os
+import mss
+import winreg
 from datetime import datetime
 
 # # Function to capture user account details
@@ -87,6 +92,15 @@ def capture_network_packets():
     except Exception as e:
         return {"error": str(e)}
     return packets
+
+# # Function to take screen capture for forensic evidence
+def take_screenshot():
+    with mss.mss() as sct:
+        screenshot_file = f"screenshot_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+        sct.shot(output=screenshot_file)
+        return {"screenshot_path": screenshot_file}
+
+
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
      forensic_data = {
@@ -96,7 +110,8 @@ def collect_forensic_snapshot():
         "network_snapshot": get_network_snapshot(),    
         "disk_snapshot": get_disk_snapshot(), 
         "partition_snapshot": get_partition_snapshot(),  
-        "network_packets": capture_network_packets(),         
+        "network_packets": capture_network_packets(),  
+        "screenshot": take_screenshot(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
