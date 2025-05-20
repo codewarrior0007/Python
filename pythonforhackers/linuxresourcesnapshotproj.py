@@ -1,4 +1,4 @@
-# Created 05/17/2025
+# Created 05/19/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: linuxresourcesnapshotproj.py
 # Script Version: 1.0
@@ -82,5 +82,14 @@ capture_command_output("cat /etc/passwd | grep sh", output_log_file)
 capture_command_output("cat /etc/shadow", output_log_file)
 capture_command_output("cat /etc/group", output_log_file)
 capture_command_output("cat /etc/sudoers", output_log_file)
+
+# Capture Login shells
+capture_command_output("cat /etc/profile", output_log_file)
+capture_command_output("cat /home/profile.d/*", output_log_file)
+capture_command_output("cat /etc/bash.bashrc", output_log_file)
+capture_command_output("cat /etc.bash_logout", output_log_file)
+capture_command_output("cat /home/$USER/.bashrc", output_log_file)
+capture_command_output("cat /home/$USER/.bashr_profile", output_log_file)
+
 
 print(f"Evidence collected! Check {output_log_file} for details.")
