@@ -1,4 +1,4 @@
-# Created 05/18/2025
+# Created 05/20/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -19,6 +19,7 @@ import pyshark
 import os
 import mss
 import winreg
+import win32com.client
 from datetime import datetime
 
 # # Function to capture user account details
@@ -100,6 +101,23 @@ def take_screenshot():
         sct.shot(output=screenshot_file)
         return {"screenshot_path": screenshot_file}
 
+# # Function to extract Outlook email metadata
+def get_outlook_emails():
+    try:
+        outlook = win32com.client.Dispatch("Outlook.Application").GetNamespace("MAPI")
+        inbox = outlook.GetDefaultFolder(6)  # 6 = Inbox
+        emails = []
+        
+        for message in inbox.Items[:5]:  # Extract last 5 emails
+            emails.append({
+                "subject": message.Subject,
+                "sender": message.SenderName,
+                "timestamp": message.SentOn.strftime("%Y-%m-%d %H:%M:%S")
+            })
+        return emails
+    except Exception as e:
+        return {"error": str(e)}
+
 
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
@@ -111,7 +129,8 @@ def collect_forensic_snapshot():
         "disk_snapshot": get_disk_snapshot(), 
         "partition_snapshot": get_partition_snapshot(),  
         "network_packets": capture_network_packets(),  
-        "screenshot": take_screenshot(),         
+        "screenshot": take_screenshot(), 
+        "outlook_emails": get_outlook_emails(),    
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
