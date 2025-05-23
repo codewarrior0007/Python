@@ -1,4 +1,4 @@
-# Created 05/20/2025
+# Created 05/22/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -118,6 +118,29 @@ def get_outlook_emails():
     except Exception as e:
         return {"error": str(e)}
 
+# # Function to extract registry keys
+def get_registry_keys():
+    keys = ["SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "SYSTEM\\CurrentControlSet\\Services"]
+    registry_data = {}
+
+    try:
+        for key in keys:
+            reg = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, key, 0, winreg.KEY_READ)
+            registry_data[key] = {}
+            
+            i = 0
+            while True:
+                try:
+                    name, value, _ = winreg.EnumValue(reg, i)
+                    registry_data[key][name] = value
+                    i += 1
+                except OSError:
+                    break
+    except Exception as e:
+        return {"error": str(e)}
+
+    return registry_data
+
 
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
@@ -130,7 +153,8 @@ def collect_forensic_snapshot():
         "partition_snapshot": get_partition_snapshot(),  
         "network_packets": capture_network_packets(),  
         "screenshot": take_screenshot(), 
-        "outlook_emails": get_outlook_emails(),    
+        "outlook_emails": get_outlook_emails(),
+        "registry_keys": get_registry_keys(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
