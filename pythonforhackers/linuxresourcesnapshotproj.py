@@ -1,4 +1,4 @@
-# Created 05/21/2025
+# Created 05/23/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: linuxresourcesnapshotproj.py
 # Script Version: 1.0
@@ -96,5 +96,8 @@ capture_command_output("cat /lib/systemd/system/ssh.service", output_log_file)
 capture_command_output("cat /etc/ssh/sshd_config", output_log_file)
 capture_command_output("ls ~/.ssh/rc", output_log_file)
 capture_command_output("ls /etc/ssh/sshrc", output_log_file)
+
+# Capture Services and systemd
+capture_command_output("ls /etc/systemd/system/", output_log_file)
 
 print(f"Evidence collected! Check {output_log_file} for details.")
