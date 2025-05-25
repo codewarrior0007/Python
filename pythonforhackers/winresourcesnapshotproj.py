@@ -1,4 +1,4 @@
-# Created 05/22/2025
+# Created 05/24/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -20,7 +20,17 @@ import os
 import mss
 import winreg
 import win32com.client
+import browser_history
+import shutil
+import pytsk3
+import dfvfs 
+import plaso
+import usbrip
+import hachoir
+import yara
+import pyclamd
 from datetime import datetime
+from reportlab.pdfgen import canvas
 
 # # Function to capture user account details
 def get_user_info():
@@ -141,6 +151,14 @@ def get_registry_keys():
 
     return registry_data
 
+ # Function to extract browser history
+def get_browser_history():
+    try:
+        outputs = browser_history.get_history()
+        history = [{"timestamp": str(entry[0]), "url": entry[1]} for entry in outputs.histories]
+        return history
+    except Exception as e:
+        return {"error": str(e)}
 
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
@@ -154,7 +172,8 @@ def collect_forensic_snapshot():
         "network_packets": capture_network_packets(),  
         "screenshot": take_screenshot(), 
         "outlook_emails": get_outlook_emails(),
-        "registry_keys": get_registry_keys(),         
+        "registry_keys": get_registry_keys(),  
+        "browser_history": get_browser_history(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
