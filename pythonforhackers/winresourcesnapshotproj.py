@@ -1,4 +1,4 @@
-# Created 05/24/2025
+# Created 05/28/2025
 # Author: https://github.com/codewarrior0007
 # Script Name: winresourcesnapshotproj.py
 # Script Version: 1.0
@@ -160,6 +160,21 @@ def get_browser_history():
     except Exception as e:
         return {"error": str(e)}
 
+# # Function to extract documents and photos under Windows profile
+def get_user_files():
+    user_dirs = ["Documents", "Pictures"]
+    user_files = {}
+
+    for directory in user_dirs:
+        path = os.path.join(os.path.expanduser("~"), directory)
+        if os.path.exists(path):
+            user_files[directory] = os.listdir(path)
+        else:
+            user_files[directory] = "Directory not found"
+
+    return user_files
+
+
 # # Aggregate all forensic snapshots
 def collect_forensic_snapshot():
      forensic_data = {
@@ -173,7 +188,8 @@ def collect_forensic_snapshot():
         "screenshot": take_screenshot(), 
         "outlook_emails": get_outlook_emails(),
         "registry_keys": get_registry_keys(),  
-        "browser_history": get_browser_history(),         
+        "browser_history": get_browser_history(), 
+        "user_files": get_user_files(),         
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
      }
     
