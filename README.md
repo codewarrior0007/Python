@@ -1,19 +1,37 @@
 # Python
-This is a Python Repo to learn new tips and tricks of the Python world.  
 
-1. **Operating System**: Lubuntu 24.04.01 - Lubuntu is a lightweight Linux distribution based on Ubuntu that uses the LXQt desktop environment in place of GNOME. (https://lubuntu.me/)
-2. **Language:** Python 3.12.3 (https://www.python.org/downloads/)
-3. **Coding in:** Python IDLE & MS Visual Studio Code (https://code.visualstudio.com/) 
-4. **Snap store:** to safely install Linux apps on OS.   (https://snapcraft.io/store)
-5. **Python Add-ons**
-   - jupyter - (https://jupyter.org/install)
-      - jupyter lab - (https://jupyter.org/install)
-      - jupyter notebook - (https://jupyter.org/install)
-      - venv (virtual environment) & pip - (https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)     
-7. Projects under this repo:
-   - _Practice Python Dot Org lessons_ - Learning based on https://www.practicepython.org projects. 
-   - _Python for Hackers_ - Python learning for Cybersecurity purposes. (e.g. Networking, NMap, NVD NIST GOV API. Linux log system exploration, Linux Forensics resources snapshot project, Windows resources snapshot project). 
-   - _Python Start_ - This folder contains my latest Python refresher code. 
-   - _Python Turtle Library Fun_ - Games bsed on Python Turtle library (https://docs.python.org/3/library/turtle.html).
-   - _Quick Python Game_ - Game based on Python Random and Time libraries (https://docs.python.org/3/library/random.html && https://docs.python.org/3/library/time.html).
-    
+A collection of Python projects covering general scripting practice, game
+development with the Turtle library, and security-focused scripting —
+including network fundamentals, vulnerability data retrieval, and
+forensic/incident-response triage.
+
+## Highlights
+
+- **[`pythonforhackers/`](./pythonforhackers)** — cybersecurity-focused
+  scripts, including a Windows forensic snapshot tool (memory, processes,
+  network, registry autoruns, browser history) built on real DFIR tooling
+  (psutil, pyshark, pytsk3, dfvfs, YARA), a CVE lookup script against the
+  NVD/NIST API, and basic networking (ICMP/UDP/TCP socket) and Nmap
+  scanning examples.
+
+## Projects
+
+| Folder | Description |
+|---|---|
+| [`pythonforhackers/`](./pythonforhackers) | Cybersecurity-focused scripting: networking basics, Nmap scanning, CVE lookups, and Windows/Linux forensic snapshot tools |
+| [`praticepythonDotorglessons/`](./praticepythonDotorglessons) | Exercises based on [practicepython.org](https://www.practicepython.org) |
+| [`pythonstart/`](./pythonstart) | Python refresher code |
+| [`pythonturtlefun/`](./pythonturtlefun) | Games built with the [Python Turtle library](https://docs.python.org/3/library/turtle.html) |
+| [`quickpythongame/`](./quickpythongame) | A game built with Python's [random](https://docs.python.org/3/library/random.html) and [time](https://docs.python.org/3/library/time.html) libraries |
+
+## Environment
+
+- **OS:** Lubuntu 24.04.01 — a lightweight Ubuntu-based distro using the LXQt desktop ([lubuntu.me](https://lubuntu.me/))
+- **Language:** Python 3.12.3 ([python.org](https://www.python.org/downloads/))
+- **Tools:** Python IDLE, [VS Code](https://code.visualstudio.com/)
+- **Package management:** [Snap Store](https://snapcraft.io/store) for Linux apps; `pip` and `venv` for Python packages
+- **Add-ons:** [Jupyter](https://jupyter.org/install) (Lab & Notebook)
+
+## License
+
+GPL-3.0
