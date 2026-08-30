@@ -1,4 +1,4 @@
-# Created 05/04/2025
+# Created 08/29/2026
 # Author: https://github.com/codewarrior0007
 # Script Name: nmapscanner.py
 # Script Version: 1.0
@@ -11,12 +11,12 @@
 # gets the json response from the server for all the top open ports.  
 # Disclaimer: This script was written for demonstation purposes only. Any miss use of this _
 # script is not the responsibility of the author.  
+# Revion - 08/29/2026 - Indentation issue with the code.  
 
+import nmap3
 
- import nmap3
+nmap = nmap3.Nmap()
+target_host = "www.google.com"
+results = nmap.scan_top_ports(target_host)
 
- nmap = nmap3.Nmap()
- target_host = "www.google.com"
- results = nmap.scan_top_ports(target_host)
-
- print(results)
+print(results)
